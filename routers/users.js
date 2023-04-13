@@ -9,6 +9,9 @@ const Users = require('../models/users')
 //     res.send('Get Request')
 // })
 
+/**
+ * Get Method
+ */
 router.get('/', async(req, res) => {
     try{
        const users = await Users.find();
@@ -18,6 +21,9 @@ router.get('/', async(req, res) => {
     }
 });
 
+/**
+ * Get By Id
+ */
 router.get('/:id', async(req, res) => {
     try{
        const users = await Users.findById(req.params.id);
@@ -27,6 +33,9 @@ router.get('/:id', async(req, res) => {
     }
 });
 
+/**
+ * Update by Id
+ */
 router.patch('/:id', async(req, res) => {
     try{
        const users = await Users.findById(req.params.id);
@@ -39,6 +48,9 @@ router.patch('/:id', async(req, res) => {
 });
 
 
+/**
+ * Inserting a new record
+ */
 router.post('/', async(req, res) => {
     const user = new Users({
         name: req.body.name,
@@ -51,6 +63,18 @@ router.post('/', async(req, res) => {
         res.json(user1);
     }catch(err){
 
+    }
+});
+
+/**
+ * Delete by Id
+ */
+router.delete('/:id', async(req, res) => {
+    try{
+       const users = await Users.findOneAndRemove({_id: req.params.id});
+       res.send('Record Deleted');
+    }catch(err){
+        res.send('Error' + err)
     }
 });
 
